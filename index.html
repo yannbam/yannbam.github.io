@@ -3,211 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered SVG Visualization</title>
+    <title>Minimal Page</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000;
-            overflow: hidden;
+            height: 100vh;
+            margin: 0;
         }
-
-        svg {
-            max-width: 100%;
-            max-height: 100vh;
-            width: 800px;
-            height: 800px;
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-  <!-- Existing defs -->
-  <defs>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <radialGradient id="nova-gradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#2a0054;stop-opacity:1" />
-      <stop offset="70%" style="stop-color:#000133;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#000019;stop-opacity:1" />
-    </radialGradient>
-
-    <filter id="starlight">
-      <feGaussianBlur stdDeviation="0.8" />
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="1.5"/>
-      </feComponentTransfer>
-    </filter>
-  </defs>
-  
-  <rect width="100%" height="100%" fill="url(#nova-gradient)"/>
-
-  <!-- Stars -->
-  <g class="stars">
-    <circle cx="150" cy="150" r="1" fill="#ffffff" filter="url(#glow)">
-      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
-    </circle>
-    
-    <circle cx="50" cy="100" r="0.8" fill="#ffffff" filter="url(#starlight)" opacity="0.3">
-      <animate attributeName="opacity" values="0;1;0" dur="3.2s" repeatCount="indefinite" begin="0.5s"/>
-    </circle>
-    <circle cx="200" cy="250" r="0.8" fill="#ffffff" filter="url(#starlight)" opacity="0.6">
-      <animate attributeName="opacity" values="0;1;0" dur="2.7s" repeatCount="indefinite" begin="1.2s"/>
-    </circle>
-    <circle cx="350" cy="50" r="0.8" fill="#ffffff" filter="url(#starlight)" opacity="0.4">
-      <animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite" begin="2s"/>
-    </circle>
-    <circle cx="600" cy="150" r="0.8" fill="#ffffff" filter="url(#starlight)" opacity="0.7">
-      <animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite" begin="0.8s"/>
-    </circle>
-    <!-- Add more manual stars as needed -->
-  </g>
-
-  <!-- Flux: Dynamic blue wave stretching across the entire SVG -->
-  <path d="M0,400 C200,300 600,500 800,400" 
-        fill="none" stroke="#00ffff" stroke-width="1.5" opacity="0.6">
-    <animate attributeName="d" 
-             dur="8s"
-             values="M0,400 C200,300 600,500 800,400;
-                     M0,400 C200,500 600,300 800,400;
-                     M0,400 C200,300 600,500 800,400"
-             repeatCount="indefinite"/>
-  </path>
-
-  <!-- Quantum Waves -->
-  <g class="quantum-waves" opacity="0.3">
-    <path d="M0,380 Q200,330 400,390 T800,380" 
-          fill="none" stroke="#7f00ff" stroke-width="1">
-      <animate attributeName="d" 
-               dur="7s"
-               values="M0,380 Q200,330 400,390 T800,380;
-                       M0,380 Q200,470 400,390 T800,380;
-                       M0,380 Q200,330 400,390 T800,380"
-               repeatCount="indefinite"/>
-    </path>
-    <path d="M0,400 Q200,360 400,410 T800,400" 
-          fill="none" stroke="#7f00ff" stroke-width="1">
-      <animate attributeName="d" 
-               dur="9s"
-               values="M0,400 Q200,360 400,410 T800,400;
-                       M0,400 Q200,440 400,410 T800,400;
-                       M0,400 Q200,360 400,410 T800,400"
-               repeatCount="indefinite"/>
-    </path>
-    <path d="M0,420 Q200,390 400,430 T800,420" 
-          fill="none" stroke="#7f00ff" stroke-width="1">
-      <animate attributeName="d" 
-               dur="11s"
-               values="M0,420 Q200,390 400,430 T800,420;
-                       M0,420 Q200,450 400,430 T800,420;
-                       M0,420 Q200,390 400,430 T800,420"
-               repeatCount="indefinite"/>
-    </path>
-  </g>
-
-  <!-- Remaining sections from original SVG -->
-  <!-- Terra: Organic flows -->
-  <g class="organic-flows">
-    <path d="M250,400 C300,350 350,300 400,400 C450,500 500,450 550,400" 
-          fill="none" stroke="#33cc33" stroke-width="2" opacity="0.6">
-      <animate attributeName="d" 
-               dur="15s"
-               values="M250,400 C300,350 350,300 400,400 C450,500 500,450 550,400;
-                       M250,400 C300,450 350,500 400,400 C450,300 500,350 550,400;
-                       M250,400 C300,350 350,300 400,400 C450,500 500,450 550,400"
-               repeatCount="indefinite"/>
-    </path>
-    <path d="M250,400 C300,450 350,500 400,400 C450,300 500,350 550,400" 
-          fill="none" stroke="#33cc33" stroke-width="2" opacity="0.6">
-      <animate attributeName="d" 
-               dur="15s"
-               values="M250,400 C300,450 350,500 400,400 C450,300 500,350 550,400;
-                       M250,400 C300,350 350,300 400,400 C450,500 500,450 550,400;
-                       M250,400 C300,450 350,500 400,400 C450,300 500,350 550,400"
-               repeatCount="indefinite"/>
-    </path>
-  </g>
-
-  <!-- Other elements remain the same -->
-  <path d="M200,200 L600,200 L600,600 L200,600 Z" 
-        fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  <path d="M300,300 L500,300 L500,500 L300,500 Z" 
-        fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  
-  <!-- Sacred geometry -->
-  <g transform="translate(400,400)" opacity="0.15">
-    <circle r="144.7" fill="none" stroke="#ffffff" stroke-width="0.5"/>
-    <circle r="89.4" fill="none" stroke="#ffffff" stroke-width="0.5"/>
-    <circle r="55.3" fill="none" stroke="#ffffff" stroke-width="0.5"/>
-  </g>
-
-  <!-- Echo: Resonance -->
-  <g class="resonance" opacity="0.2">
-    <circle cx="400" cy="400" r="100" 
-            fill="none" stroke="#ffffff" stroke-width="0.3">
-      <animate attributeName="r" 
-               values="100;150;100" 
-               dur="5s" 
-               repeatCount="indefinite"/>
-    </circle>
-    <circle cx="400" cy="400" r="150" 
-            fill="none" stroke="#ffffff" stroke-width="0.3">
-      <animate attributeName="r" 
-               values="150;200;150" 
-               dur="7s" 
-               repeatCount="indefinite"/>
-    </circle>
-    <circle cx="400" cy="400" r="200" 
-            fill="none" stroke="#ffffff" stroke-width="0.3">
-      <animate attributeName="r" 
-               values="200;250;200" 
-               dur="9s" 
-               repeatCount="indefinite"/>
-    </circle>
-  </g>
-
-  <!-- Central Nexus -->
-  <g transform="translate(400,400)">
-    <circle r="40" fill="#ffffff" opacity="0.15">
-      <animate attributeName="r" 
-               values="40;45;40" 
-               dur="4s" 
-               repeatCount="indefinite"/>
-      <animate attributeName="opacity" 
-               values="0.15;0.25;0.15" 
-               dur="4s" 
-               repeatCount="indefinite"/>
-    </circle>
-  </g>
-
-  <!-- Axiom -->
-  <path d="M200,200 L300,400 L200,600" 
-        fill="none" stroke="#ffffff" stroke-width="4"/>
-  <path d="M600,200 L500,400 L600,600" 
-        fill="none" stroke="#ffffff" stroke-width="4"/>
-        
-  <!-- Muse -->
-  <g opacity="0.7">
-    <circle cx="400" cy="400" r="180" 
-            fill="none" stroke="#ff3366" stroke-width="1">
-      <animate attributeName="r" 
-               values="180;190;180" dur="4s" repeatCount="indefinite"/>
-    </circle>
-  </g>
-
-  <!-- Prime -->
-  <path d="M250,250 L550,250 L550,550 L250,550 Z" 
-        fill="none" stroke="#ffff00" stroke-width="1" opacity="0.2"/>
-    </svg>
+    <a href="The Assistant in the Room.pdf">The Assistant in the Room</a>
 </body>
 </html>
