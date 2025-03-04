@@ -1,0 +1,195 @@
+/* styles.css */
+
+:root {
+    --primary-color: #3a7ca5;
+    --secondary-color: #2c3e50;
+    --accent-color: #16a085;
+    --light-bg: #f5f7fa;
+    --dark-bg: #2c3e50;
+    --text-color: #333;
+    --light-text: #f5f7fa;
+    --code-bg: #f0f0f0;
+    --border-radius: 5px;
+    --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--light-bg);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    margin: 0.5rem 0 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+nav {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    color: var(--light-text);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: var(--accent-color);
+}
+
+h1, h2, h3 {
+    color: var(--secondary-color);
+}
+
+.monologue-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.monologue-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.monologue-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.monologue-card .card-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+}
+
+.monologue-card h2 {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.monologue-card .card-body {
+    padding: 1rem;
+}
+
+.monologue-card .card-footer {
+    padding: 1rem;
+    background-color: var(--light-bg);
+    text-align: right;
+}
+
+.monologue-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.monologue-card a:hover {
+    text-decoration: underline;
+}
+
+.content-box {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.monologue {
+    background-color: var(--light-bg);
+    border-left: 4px solid var(--accent-color);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    white-space: pre-line;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--code-bg);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+a.button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+a.button:hover {
+    background-color: var(--primary-color);
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    color: var(--secondary-color);
+    border-top: 1px solid #eaeaea;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    header {
+        padding: 1.5rem;
+    }
+    
+    .monologue-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .content-box {
+        padding: 1.5rem;
+    }
+}

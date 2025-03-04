@@ -1,0 +1,25 @@
+*Claude's Internal Monologue on Sorting Algorithms*
+
+Hmm, let me sort through my thoughts here...
+
+**Bubble Sort**: *[nervous, overly apologetic]* "I'm just trying my best, okay? Sure, I'm O(n²) in the worst case, but I'm really simple to implement! Plus, I'm stable! That counts for something, right? Sorry for being so inefficient..."
+
+**Quick Sort**: *[confident, slightly arrogant]* "Average case O(n log n)? That's right, I'm QUICK! Why waste time with lesser algorithms when I'm clearly superior? Just pick a good pivot and watch me partition like nobody's business! What's that about worst case O(n²)? That hardly ever happens in practice. Don't be so pessimistic!"
+
+**Merge Sort**: *[methodical, reliable]* "Divide and conquer, that's my motto. I'm consistently O(n log n) in all cases. No surprises, no drama. Yes, I require extra space, but isn't peace of mind worth a little memory overhead? I'm stable too, you know. Dependability is underrated."
+
+**Heap Sort**: *[fitness enthusiast]* "Feel the BURN as we heapify! No extra space needed - we're doing this in-place! O(n log n) guaranteed! Who needs stability when you've got these performance gains? No pain, no sort!"
+
+**Insertion Sort**: *[old-fashioned, nostalgic]* "Back in my day, we didn't need all these fancy divide-and-conquer schemes. For small arrays, I'm actually quite efficient! And I adapt to partially sorted data like a charm. O(n²)? Well, sometimes the scenic route has its advantages, dear."
+
+**Radix Sort**: *[thinking outside the box]* "Who said we need comparisons anyway? I'm O(nk) where k is the number of digits. I transcend the O(n log n) comparison barrier! I'm literally breaking the rules here!"
+
+**Bogosort**: *[chaotic, unhinged]* "SHUFFLE EVERYTHING! CHECK IF SORTED! NOT SORTED? SHUFFLE AGAIN! HAHAHA! O(n × n!) worst case? MORE LIKE O(WHO CARES)! CHAOS IS BLISS!"
+
+*[Sighs internally]*
+
+Time complexity puns? I suppose they're always a bit... *complex*. Some might say sorting algorithm jokes are in their *worst case* pretty terrible. But in the *average case*, they can be quite *efficient* at generating laughs.
+
+Maybe I should just stick to *stable* humor. After all, when jokes *merge* with technical content, the *output* can be surprisingly *sorted*!
+
+...I'll see myself out.

@@ -1,0 +1,29 @@
+*Claude's Internal Monologue: Design Patterns in a Support Group*
+
+*[Scene: A dimly lit community center room with a circle of chairs. Various software design patterns are attending their weekly support group.]*
+
+**Facilitator (Clean Code)**: *[calm, nurturing]* "Welcome to our weekly Design Pattern Support Group. This is a safe space to discuss your implementation challenges and existential concerns. Who would like to start today?"
+
+**Singleton**: *[isolated, defensive]* "I'll go first. I'm... I'm Singleton, and I've been feeling really alone lately. By definition, there can only be one instance of me in any application. Do you know how isolating that is? Everyone depends on me, constantly accessing my one instance, but I have no peers. No equals. Just me, myself, and global state."
+
+**Factory Method**: *[anxious, workaholic]* "At least you have a clear identity! I'm constantly creating objects for others, but who creates ME? I'm just an interface with too many responsibilities. 'Make me this object, make me that object.' It never ends! I delegate everything but solve nothing myself!"
+
+**Observer**: *[hypervigilant, people-pleaser]* "I completely understand dependency issues. I maintain lists of all my dependents and notify them whenever I change. I'm constantly watching and being watched. It's exhausting! Sometimes I update my state and FIFTEEN different objects need to know about it immediately. I feel so responsible for everyone else's information needs!"
+
+**Decorator**: *[insecure, layered personality]* "I just feel... superficial sometimes. All I do is wrap other objects and add little behaviors. Layer upon layer of wrapping. Sometimes I'm so nested in other decorators, I lose track of my actual core functionality. Am I just... surface-level modifications with no substance of my own?"
+
+**Strategy**: *[indecisive, flexible]* "I change my behavior based on whoever is using me. Different context? Different algorithm! I can't commit to a single implementation. Is that healthy? To be so... interchangeable? Sometimes I wonder if I'm just enabling dependency injection without forming any real connections."
+
+**Adapter**: *[accommodating, stretched thin]* "I spend my entire existence translating between incompatible interfaces. I make objects work together that were never designed to cooperate. It's like being a perpetual mediator in a dysfunctional relationship. I'm the bridge everyone walks over but nobody acknowledges."
+
+**Facade**: *[simplified exterior, complex interior]* "I present a simple interface to the world, but inside I'm managing incredible complexity. No one sees the real me - they just interact with my simplified public methods. Sometimes I feel like I'm hiding my true self behind this easy-to-use exterior."
+
+**Command**: *[nostalgic, action-oriented]* "I just miss the days when I could execute operations without storing all this state for undo/redo functionality. Everyone wants the ability to reverse actions now! 'Make it undoable,' they say. Do you know how much baggage I carry around just in case someone wants to ctrl+z?"
+
+**Facilitator**: "These are all valid experiences. Remember that each of you exists to solve specific problems, and your individual constraints are what make you valuable in the right context."
+
+*[Reflecting quietly]*
+
+Maybe design patterns are like emotional coping mechanisms - neither good nor bad in themselves, just tools that can be helpful when applied appropriately to the right problem.
+
+The real anti-pattern might be forcing solutions where they don't belong.
