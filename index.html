@@ -34,6 +34,7 @@
     
     <nav>
         <ul>
+            <li><a href="#chat">Interactive Chat</a></li>
             <li><a href="#sorting">Sorting Algorithms</a></li>
             <li><a href="#languages">Programming Languages</a></li>
             <li><a href="#data-structures">Data Structures</a></li>
@@ -55,6 +56,19 @@
         <p>Scroll down to explore all monologues, or use the navigation menu to jump to specific categories.</p>
     </div>
     
+    <div id="chat" class="content-box">
+        <h2>Interactive Chat with Claude</h2>
+        <p>Chat directly with Claude about programming concepts, algorithms, and more. Ask for explanations, comparisons, or creative monologues on any technical topic!</p>
+        
+        <div class="chat-container">
+            <div id="chat-messages" class="chat-messages"></div>
+            <div class="chat-input-container">
+                <input type="text" id="user-input" placeholder="Ask about any programming concept..." />
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
     <div class="content-box">
         <h2>Available Monologues</h2>
         <ul>
@@ -159,6 +173,87 @@
             }
         }
 
+        // Chat functionality
+        function initChat() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            
+            // Add welcome message
+            addMessage('Hello! I\'m Claude. Ask me about programming concepts, algorithms, or request a creative monologue about any tech topic!', 'claude');
+            
+            // Sample responses based on user input keywords
+            const responses = {
+                'sorting': 'Would you like me to explain different sorting algorithms? Or perhaps you\'d enjoy a creative monologue where sorting algorithms have personalities?',
+                'algorithm': 'Algorithms are step-by-step procedures for calculations. Would you like to learn about a specific algorithm?',
+                'language': 'Programming languages are fascinating! Each has unique strengths and philosophies. Which language are you interested in?',
+                'data structure': 'Data structures are specialized formats for organizing and storing data. Would you like to know about arrays, linked lists, trees, or another structure?',
+                'monologue': 'I\'d be happy to create a monologue! What technical topic would you like me to personify with distinct characters?',
+                'design pattern': 'Design patterns are proven solutions to common problems in software design. Would you like to learn about specific patterns?',
+                'database': 'Databases store and organize data. Are you interested in SQL, NoSQL, or specific database technologies?',
+                'network': 'Networking is about connecting computers to share resources. What aspect of networking are you curious about?',
+                'operating system': 'Operating systems manage hardware resources and provide services for computer programs. Would you like to compare different OS approaches?'
+            };
+            
+            // Default responses for inputs that don't match keywords
+            const defaultResponses = [
+                'That\'s an interesting topic! Would you like me to create a creative monologue about it?',
+                'I can help with that. Would you like a technical explanation or a more creative approach?',
+                'Great question! Would you like a detailed explanation or just the key concepts?',
+                'I'd be happy to discuss that. Is there a specific aspect you're interested in?'
+            ];
+            
+            // Function to add a message to the chat
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(sender + '-message');
+                messageDiv.textContent = text;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Function to get Claude's response
+            function getClaudeResponse(userText) {
+                userText = userText.toLowerCase();
+                
+                // Check for keyword matches
+                for (const [keyword, response] of Object.entries(responses)) {
+                    if (userText.includes(keyword)) {
+                        return response;
+                    }
+                }
+                
+                // If no keywords match, return a random default response
+                const randomIndex = Math.floor(Math.random() * defaultResponses.length);
+                return defaultResponses[randomIndex];
+            }
+            
+            // Handle send button click
+            function handleSend() {
+                const userText = userInput.value.trim();
+                if (userText) {
+                    // Add user message
+                    addMessage(userText, 'user');
+                    userInput.value = '';
+                    
+                    // Simulate Claude thinking with a short delay
+                    setTimeout(() => {
+                        const claudeResponse = getClaudeResponse(userText);
+                        addMessage(claudeResponse, 'claude');
+                    }, 500);
+                }
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', handleSend);
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSend();
+                }
+            });
+        }
+
         // Load all content when the page loads
         window.addEventListener('DOMContentLoaded', () => {
             loadTextContent('sorting_monologue.txt', '#sorting .monologue');
@@ -168,6 +263,9 @@
             loadTextContent('networking_protocols_dinner.txt', '#networking .monologue');
             loadTextContent('database_models_debate.txt', '#databases .monologue');
             loadTextContent('operating_systems_roommates.txt', '#os .monologue');
+            
+            // Initialize chat functionality
+            initChat();
         });
     </script>
 </body>

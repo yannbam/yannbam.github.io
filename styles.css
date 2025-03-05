@@ -168,6 +168,71 @@ a.button:hover {
     background-color: var(--primary-color);
 }
 
+/* Chat interface styling */
+.chat-container {
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid #ddd;
+    margin-top: 1rem;
+}
+
+.chat-messages {
+    height: 350px;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: white;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #e3f2fd;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.claude-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    background-color: white;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+#send-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0 1.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+#send-button:hover {
+    background-color: var(--primary-color);
+}
+
 footer {
     text-align: center;
     margin-top: 3rem;
