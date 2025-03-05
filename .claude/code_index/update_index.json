@@ -1,0 +1,102 @@
+{
+  "name": "update_index.py",
+  "description": "Script to update index.html with new monologues, keeping the web interface in sync with available monologue files.",
+  "functions": {
+    "get_monologue_files": {
+      "purpose": "Retrieves all text files in the current directory that contain monologues",
+      "signature": {
+        "parameters": [],
+        "return_type": "list[str]"
+      },
+      "dependencies": [],
+      "data_flow": {
+        "inputs": [],
+        "outputs": ["List of text filenames"]
+      },
+      "pattern": "File Discovery"
+    },
+    "extract_title": {
+      "purpose": "Extracts the title from a monologue file by searching for a specific pattern or falls back to using the filename",
+      "signature": {
+        "parameters": [{"name": "filename", "type": "str"}],
+        "return_type": "str"
+      },
+      "dependencies": [],
+      "data_flow": {
+        "inputs": ["Monologue filename"],
+        "outputs": ["Extracted title string"]
+      },
+      "pattern": "Content Extraction"
+    },
+    "extract_description": {
+      "purpose": "Extracts a brief description from a monologue file by looking for text in italics within the first few lines",
+      "signature": {
+        "parameters": [{"name": "filename", "type": "str"}],
+        "return_type": "str"
+      },
+      "dependencies": [],
+      "data_flow": {
+        "inputs": ["Monologue filename"],
+        "outputs": ["Extracted description string"]
+      },
+      "pattern": "Content Extraction"
+    },
+    "get_id_from_filename": {
+      "purpose": "Converts a filename to an HTML-compatible ID by removing extensions, converting to lowercase, and replacing special characters",
+      "signature": {
+        "parameters": [{"name": "filename", "type": "str"}],
+        "return_type": "str"
+      },
+      "dependencies": [],
+      "data_flow": {
+        "inputs": ["Monologue filename"],
+        "outputs": ["HTML-compatible ID string"]
+      },
+      "pattern": "String Transformation"
+    },
+    "update_index_html": {
+      "purpose": "Updates the index.html file with all available monologues, creating navigation items, content boxes, and JavaScript loading functions",
+      "signature": {
+        "parameters": [],
+        "return_type": "bool"
+      },
+      "dependencies": [
+        "get_monologue_files",
+        "extract_title",
+        "extract_description",
+        "get_id_from_filename"
+      ],
+      "data_flow": {
+        "inputs": ["index.html file", "Monologue text files"],
+        "outputs": ["Updated index.html file"]
+      },
+      "pattern": "File Transformation"
+    }
+  },
+  "execution_flow": {
+    "entry_point": "update_index_html",
+    "sequence": [
+      "Check if index.html exists",
+      "Get monologue files with get_monologue_files()",
+      "Parse index.html with BeautifulSoup",
+      "For each monologue file:",
+      [
+        "Extract title with extract_title()",
+        "Extract description with extract_description()",
+        "Generate HTML ID with get_id_from_filename()",
+        "Add navigation item",
+        "Add content list item",
+        "Create content box with title, description, and placeholders",
+        "Add JavaScript loading call"
+      ],
+      "Update or create JavaScript for dynamic content loading",
+      "Write updated HTML to index.html"
+    ]
+  },
+  "dependencies": {
+    "external": ["os", "re", "glob", "BeautifulSoup (bs4)"]
+  },
+  "data_structures": {
+    "load_content_calls": "List of JavaScript function calls to load monologue content dynamically"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "version": "1.0",
+  "patterns": {
+    "feat": {
+      "description": "New feature",
+      "examples": [
+        "feat: Add quantum computing concepts monologue",
+        "feat: Add interactive chat functionality to website"
+      ],
+      "structure": {
+        "prefix": "feat",
+        "subject": "Brief description of the feature",
+        "body": "Optional detailed description",
+        "footer": "Optional footer with references"
+      }
+    },
+    "fix": {
+      "description": "Bug fix",
+      "examples": [
+        "fix: Add interactive chat functionality to website"
+      ],
+      "structure": {
+        "prefix": "fix",
+        "subject": "Brief description of the fix",
+        "body": "Optional detailed description",
+        "footer": "Optional footer with references"
+      }
+    },
+    "docs": {
+      "description": "Documentation changes",
+      "examples": [
+        "docs: Self-update CLAUDE.md with latest interaction",
+        "docs: Update CLAUDE.md with chat interface implementation details"
+      ],
+      "structure": {
+        "prefix": "docs",
+        "subject": "Brief description of the documentation change",
+        "body": "Optional detailed description",
+        "footer": "Optional footer with references"
+      }
+    },
+    "revert": {
+      "description": "Revert previous changes",
+      "examples": [
+        "Revert \"fix: Add interactive chat functionality to website\""
+      ],
+      "structure": {
+        "prefix": "revert",
+        "subject": "Brief description of the revert",
+        "body": "This reverts commit [hash]",
+        "footer": "Optional footer with additional information"
+      }
+    }
+  },
+  "repo_specific_guidelines": {
+    "monologue_commit_structure": {
+      "new_monologue": "feat: Add [topic] monologue",
+      "update_monologue": "fix: Update [topic] monologue with [change]",
+      "documentation": "docs: Update [document] with [change]"
+    },
+    "website_commit_structure": {
+      "new_feature": "feat: Add [feature] to website",
+      "fix": "fix: Fix [issue] in website"
+    }
+  },
+  "user_preferences": {
+    "commit_message_style": "conventional_commits",
+    "preferred_tense": "present",
+    "preferred_voice": "active",
+    "auto_sign_off": false,
+    "prefer_detailed_body": false
+  }
+}

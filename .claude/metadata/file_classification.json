@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "file_types": {
+    "monologue": {
+      "patterns": ["*.txt"],
+      "classification": "content",
+      "purpose": "Creative writing showing AI self-reflection on technical topics",
+      "structure": {
+        "title": "Claude's Internal Monologue: [TOPIC]",
+        "scene_description": "[SETTING] with italics",
+        "characters": "List of technical concepts with personalities",
+        "dialogue": "Interactions between character personalities",
+        "conclusion": "Reflective ending"
+      }
+    },
+    "python_script": {
+      "patterns": ["*.py"],
+      "classification": "implementation",
+      "purpose": "Script to create or update content",
+      "structure": {
+        "imports": "Libraries needed for functionality",
+        "functions": "Named functions for specific operations",
+        "main": "Entry point if run as script"
+      }
+    },
+    "web_interface": {
+      "patterns": ["*.html", "*.css"],
+      "classification": "presentation",
+      "purpose": "Display monologues in web format",
+      "structure": {
+        "navigation": "Links to monologues",
+        "content_areas": "Containers for monologue text",
+        "styling": "Visual presentation rules"
+      }
+    },
+    "documentation": {
+      "patterns": ["*.md"],
+      "classification": "documentation",
+      "purpose": "Describe project purpose, history, and organization",
+      "structure": {
+        "overview": "Project description",
+        "content": "Details about project organization",
+        "history": "Log of changes and interactions"
+      }
+    }
+  },
+  "directories": {
+    "/": {
+      "purpose": "Project root containing main files",
+      "content_types": ["monologue", "python_script", "web_interface", "documentation"]
+    },
+    "/monologues": {
+      "purpose": "Duplicate directory with monologues",
+      "content_types": ["monologue", "python_script", "web_interface", "documentation"]
+    },
+    "/.claude": {
+      "purpose": "Claude-specific metadata for optimized assistance",
+      "content_types": ["metadata", "documentation"]
+    }
+  }
+}
