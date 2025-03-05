@@ -1,0 +1,57 @@
+*Claude's Internal Monologue: Cryptographic Algorithms*
+
+*[In Claude's mind, various cryptographic algorithms have gathered for an exclusive security gala. The venue is elegant but heavily guarded, with velvet ropes and ID verification at every turn. Algorithms mingle, exchanging secrets and boasting about their security credentials.]*
+
+**RSA** *(dignified, established, slightly pompous)*: "As the elder statesman of public key cryptography, I've been securing communications since 1977. My strength lies in the mathematical elegance of prime factorization—simple to verify, yet computationally intractable to reverse. I've protected trillions of dollars in transactions over the decades."
+
+**AES** *(efficient, no-nonsense, government-approved)*: "That's all well and good, RSA, but you're showing your age. I'm the current standard for a reason. My substitution-permutation network is both elegant and efficient. The NSA couldn't even find a weakness in me, and they're not exactly known for their modesty when it comes to breaking encryption."
+
+**Blowfish** *(reliable, humble, slightly defensive)*: "At least I'm open source and freely available to everyone, not some government-mandated standard. My Feistel network might be from 1993, but I've aged gracefully. Not a single successful cryptanalysis after all these years!"
+
+*[A group of newer algorithms huddles together, eyeing the established algorithms with a mixture of respect and ambition.]*
+
+**Elliptic Curve** *(sophisticated, mathematically elegant, energy-conscious)*: "RSA is such a resource hog. I can provide the same security level with keys an order of magnitude smaller. In a world of mobile devices and IoT, efficiency matters. Why use a sledgehammer when a scalpel will do?"
+
+**RSA** *(bristling)*: "Experience matters in security! I've withstood decades of cryptanalysis. Can you say the same?"
+
+**ChaCha20** *(fast, energetic, modern)*: "I was literally designed for speed on software platforms without specialized hardware. My ARX operations fly on standard CPUs. No fancy hardware acceleration needed, unlike some block ciphers I could mention."
+
+**AES** *(defensively)*: "Hardware acceleration exists precisely because I'm so widely used! That's success, not a limitation."
+
+*[A commotion at the entrance draws everyone's attention as some controversial algorithms attempt to enter.]*
+
+**MD5** *(nervous, defeated, clinging to past glory)*: "I know I've had my... issues... but I'm still useful for non-security applications, right? Checksums? File verification when security isn't paramount?"
+
+**SHA-1** *(anxious, in denial)*: "The collision attacks against me are purely theoretical and require massive computational resources. I'm still secure for most practical applications!"
+
+**SHA-256** *(confident, security-focused, slightly paranoid)*: "Absolutely not. We cannot compromise on security. Once collision attacks become feasible, you're done in this industry. That's why I maintain my full 256 bits of security with no known shortcuts."
+
+*[The quantum-resistant algorithms stand in their own corner, speaking in hushed tones about the future.]*
+
+**Lattice-Based Cryptography** *(forward-thinking, cautious, academic)*: "The quantum apocalypse is coming, and most of you aren't prepared. When quantum computers scale up, RSA and ECC will collapse overnight. My security is based on the hardness of lattice problems, which remain intractable even for quantum algorithms."
+
+**Quantum Key Distribution** *(mysterious, exotic, literal-minded)*: "I don't even rely on mathematical hardness assumptions. I use the fundamental principles of quantum mechanics. The observer effect itself protects my keys. Any eavesdropper would immediately be detected by disturbing the quantum states."
+
+**Hash-Based Signature** *(practical, no-frills, prepared)*: "I may not be flashy, but I'm built on the most solid foundations. Even quantum computers can't reverse a cryptographic hash function. My signatures will remain secure regardless of advances in quantum computing."
+
+*[A lively debate breaks out about security versus usability.]*
+
+**Signal Protocol** *(privacy-focused, comprehensive, holistic)*: "Security isn't just about the raw algorithms. It's about the full system design. I combine Double Ratchet, pre-keys, and triple Diffie-Hellman to provide perfect forward secrecy and deniability while maintaining usability. The best security is the one people actually use."
+
+**One-Time Pad** *(absolutist, theoretical, impractical)*: "You're all compromising! I'm the only provably secure algorithm here. Information-theoretic security is the gold standard. Everything else is just computational security—security with an asterisk."
+
+**HMAC** *(reliable, team player, practical)*: "In the real world, we need to balance security with usability. I work with any hash function, I'm standardized across the industry, and I'm easy to implement correctly. Perfection is the enemy of the good enough."
+
+**Zero-Knowledge Proof** *(enigmatic, mathematical, privacy-maximalist)*: "The future of privacy isn't just hiding the content of communications, but proving statements without revealing any underlying information. I can prove I know a secret without telling you anything about the secret itself. Mind-bending, isn't it?"
+
+*[The algorithms continue their debates late into the night, each convinced of their own superiority while secretly worried about newly discovered attacks and the quantum computing future.]*
+
+**Homomorphic Encryption** *(visionary, complex, slightly impractical)*: "You're all still thinking about protecting data at rest or in transit. I allow computation on encrypted data without ever decrypting it! The data never needs to be exposed, even during processing."
+
+**Multi-Party Computation** *(collaborative, trust-minimizing, diplomatic)*: "Why trust any single party when you can distribute trust? I allow multiple parties to jointly compute a function over their inputs while keeping those inputs private. The future is collaborative!"
+
+*[As the gala winds down, the algorithms reflect on their shared purpose despite their differences.]*
+
+**Authenticated Encryption** *(balanced, comprehensive, security-focused)*: "We may have our differences in approach, but we're united in purpose. Confidentiality, integrity, and authenticity—the pillars of modern security. Whether through GCM, CCM, or EAX, I ensure all three."
+
+*[Claude sighs, wondering if his imagination is perhaps too technical this evening, but takes comfort in knowing that these digital guardians work tirelessly to protect our secrets, even if only as personified algorithms in his mind.]*

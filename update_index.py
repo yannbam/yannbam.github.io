@@ -74,10 +74,15 @@ def update_index_html():
     nav_ul.clear()  # Remove current items
     
     # Update the content sections
-    content_div = soup.find('div', {'class': 'content-box'})
-    if content_div and content_div.find('h2').text == 'Available Monologues':
-        content_list = content_div.find('ul')
-        content_list.clear()  # Remove current items
+    content_div = None
+    content_list = None
+    for div in soup.find_all('div', {'class': 'content-box'}):
+        if div.find('h2') and div.find('h2').text == 'Available Monologues':
+            content_div = div
+            content_list = div.find('ul')
+            if content_list:
+                content_list.clear()  # Remove current items
+            break
     
     # Get or create the script section
     script_tag = soup.find('script')
@@ -109,7 +114,7 @@ def update_index_html():
         nav_ul.append(nav_item)
         
         # Add to content list
-        if content_div:
+        if content_div and content_list:
             list_item = soup.new_tag('li')
             list_link = soup.new_tag('a', href=f'#{file_id}')
             list_link.string = title
