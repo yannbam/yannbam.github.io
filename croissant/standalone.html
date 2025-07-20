@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Croissant - Standalone (No Modules)</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: monospace;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="info">
+        Mathematical Croissant<br>
+        R=70, r0=20, α=1.5, θ=1.4, k=0.70<br>
+        Mouse: rotate | Scroll: zoom
+    </div>
+    
+<script>
+// Croissant geometry parameters - MATHEMATICALLY IDENTICAL to SVG
+const R     = 70;     // major radius of centre-line arc (mm ≈ px here)
+const r0    = 20;     // maximum half-thickness at u = 0
+const alpha = 1.5;    // taper exponent
+const theta = 1.4;    // half-opening angle (radians)
+const k     = 0.70;   // flattening factor of cross-section
+const SAMPLES = 200;  // resolution of the outline
+
+// Helper: cross-section scale factor f(u) = [cos(πu/2θ)]^α
+function f(u) {
+    return Math.pow(Math.cos(Math.PI * u / (2 * theta)), alpha);
+}
+
+// Create the 2D croissant shape - IDENTICAL MATH TO SVG
+function createCroissantShape() {
+    const shape = new THREE.Shape();
+    
+    // Build the outer edge from u = −θ … +θ
+    for (let i = 0; i <= SAMPLES; i++) {
+        const u = -theta + 2 * theta * i / SAMPLES;
+        const a = r0 * f(u);  // local radius added outward
+        const x = (R + a) * Math.cos(u);
+        const y = (R + a) * Math.sin(u);
+        
+        if (i === 0) {
+            shape.moveTo(x, y);
+        } else {
+            shape.lineTo(x, y);
+        }
+    }
+    
+    // Build the inner edge back from u = +θ … −θ
+    for (let i = SAMPLES; i >= 0; i--) {
+        const u = -theta + 2 * theta * i / SAMPLES;
+        const b = k * r0 * f(u);  // local radius subtracted inward
+        const x = (R - b) * Math.cos(u);
+        const y = (R - b) * Math.sin(u);
+        shape.lineTo(x, y);
+    }
+    
+    shape.closePath();
+    return shape;
+}
+
+// Scene setup
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
+// Camera
+const camera = new THREE.PerspectiveCamera(
+    50,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+);
+camera.position.set(0, 0, 300);
+
+// Renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+document.body.appendChild(renderer.domElement);
+
+// Create croissant geometry
+const croissantShape = createCroissantShape();
+
+// 2D flat representation (like SVG)
+const geometry2D = new THREE.ShapeGeometry(croissantShape);
+const material2D = new THREE.MeshBasicMaterial({
+    color: 0xF8D59E,  // warm crumb colour from SVG
+    side: THREE.DoubleSide
+});
+const mesh2D = new THREE.Mesh(geometry2D, material2D);
+
+// Add outline
+const points = croissantShape.getPoints();
+const outlineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+const outlineMaterial = new THREE.LineBasicMaterial({ 
+    color: 0xC69A5B,  // crust outline from SVG
+    linewidth: 2 
+});
+const outline = new THREE.Line(outlineGeometry, outlineMaterial);
+outline.position.z = 0.1;  // slightly in front
+
+// Group 2D representation
+const croissant2D = new THREE.Group();
+croissant2D.add(mesh2D);
+croissant2D.add(outline);
+scene.add(croissant2D);
+
+// Simple OrbitControls implementation
+let mouseX = 0, mouseY = 0;
+let targetRotationX = 0, targetRotationY = 0;
+let mouseDown = false;
+
+document.addEventListener('mousedown', () => mouseDown = true);
+document.addEventListener('mouseup', () => mouseDown = false);
+document.addEventListener('mousemove', (event) => {
+    if (mouseDown) {
+        mouseX = event.clientX - window.innerWidth / 2;
+        targetRotationY = mouseX * 0.01;
+        mouseY = event.clientY - window.innerHeight / 2;
+        targetRotationX = mouseY * 0.01;
+    }
+});
+
+// Zoom with mouse wheel
+document.addEventListener('wheel', (event) => {
+    camera.position.z += event.deltaY * 0.1;
+    camera.position.z = Math.max(100, Math.min(500, camera.position.z));
+});
+
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Smooth rotation
+    croissant2D.rotation.x += (targetRotationX - croissant2D.rotation.x) * 0.05;
+    croissant2D.rotation.y += (targetRotationY - croissant2D.rotation.y) * 0.05;
+    
+    renderer.render(scene, camera);
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Start animation
+animate();
+
+// Export for debugging/verification
+window.croissantParams = { R, r0, alpha, theta, k, SAMPLES, f };
+</script>
+</body>
+</html>

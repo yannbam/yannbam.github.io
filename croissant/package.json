@@ -1,0 +1,13 @@
+{
+  "name": "croissant-threejs",
+  "version": "1.0.0",
+  "description": "Mathematically identical Three.js implementation of SVG croissant",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "serve": "npx serve ."
+  },
+  "keywords": ["threejs", "geometry", "mathematical", "croissant"],
+  "author": "Claude",
+  "license": "MIT"
+}

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Three.js Croissant</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas { display: block; }
+        
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #controls h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 2px solid #F8D59E;
+            padding-bottom: 10px;
+            color: #F8D59E;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .control-group label span {
+            font-weight: normal;
+            opacity: 0.8;
+            font-size: 12px;
+        }
+        
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            outline: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .control-group input[type="range"]:hover {
+            opacity: 1;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #F8D59E;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #F8D59E;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+        
+        .value-display {
+            font-family: 'Courier New', monospace;
+            color: #F8D59E;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: right;
+        }
+        
+        .separator {
+            border-top: 1px solid #444;
+            margin: 20px 0;
+        }
+        
+        #info {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: white;
+            font-family: monospace;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        button {
+            background: #F8D59E;
+            border: none;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #e0c590;
+        }
+    </style>
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="controls">
+        <h2>🥐 Croissant Parameters</h2>
+        
+        <div class="control-group">
+            <label>
+                <span>R - Major Radius</span>
+                <span class="value-display" id="R-value">70</span>
+            </label>
+            <input type="range" id="R-slider" min="20" max="200" value="70" step="1">
+        </div>
+        
+        <div class="control-group">
+            <label>
+                <span>r₀ - Max Half-Thickness</span>
+                <span class="value-display" id="r0-value">20</span>
+            </label>
+            <input type="range" id="r0-slider" min="5" max="60" value="20" step="0.5">
+        </div>
+        
+        <div class="separator"></div>
+        
+        <div class="control-group">
+            <label>
+                <span>α - Taper Exponent</span>
+                <span class="value-display" id="alpha-value">1.50</span>
+            </label>
+            <input type="range" id="alpha-slider" min="0.1" max="5" value="1.5" step="0.01">
+        </div>
+        
+        <div class="control-group">
+            <label>
+                <span>θ - Half-Opening Angle</span>
+                <span class="value-display" id="theta-value">1.40</span>
+            </label>
+            <input type="range" id="theta-slider" min="0.1" max="3.14" value="1.4" step="0.01">
+        </div>
+        
+        <div class="control-group">
+            <label>
+                <span>k - Flattening Factor</span>
+                <span class="value-display" id="k-value">0.70</span>
+            </label>
+            <input type="range" id="k-slider" min="0.1" max="1" value="0.7" step="0.01">
+        </div>
+        
+        <div class="separator"></div>
+        
+        <div class="control-group">
+            <label>
+                <span>Samples (Resolution)</span>
+                <span class="value-display" id="samples-value">200</span>
+            </label>
+            <input type="range" id="samples-slider" min="20" max="500" value="200" step="10">
+        </div>
+        
+        <button onclick="resetParameters()">Reset to Original</button>
+        <button onclick="randomizeParameters()">Randomize</button>
+    </div>
+    
+    <div id="info">
+        Mouse: rotate | Scroll: zoom<br>
+        f(u) = [cos(πu/2θ)]^α
+    </div>
+    
+<script>
+// Initial parameters - can be modified by sliders
+let params = {
+    R: 70,      // major radius of centre-line arc
+    r0: 20,     // maximum half-thickness at u = 0
+    alpha: 1.5, // taper exponent
+    theta: 1.4, // half-opening angle (radians)
+    k: 0.70,    // flattening factor of cross-section
+    SAMPLES: 200 // resolution of the outline
+};
+
+// Store original values
+const originalParams = { ...params };
+
+// Helper: cross-section scale factor f(u) = [cos(πu/2θ)]^α
+function f(u) {
+    return Math.pow(Math.cos(Math.PI * u / (2 * params.theta)), params.alpha);
+}
+
+// Create the 2D croissant shape
+function createCroissantShape() {
+    const shape = new THREE.Shape();
+    
+    // Build the outer edge from u = −θ … +θ
+    for (let i = 0; i <= params.SAMPLES; i++) {
+        const u = -params.theta + 2 * params.theta * i / params.SAMPLES;
+        const a = params.r0 * f(u);  // local radius added outward
+        const x = (params.R + a) * Math.cos(u);
+        const y = (params.R + a) * Math.sin(u);
+        
+        if (i === 0) {
+            shape.moveTo(x, y);
+        } else {
+            shape.lineTo(x, y);
+        }
+    }
+    
+    // Build the inner edge back from u = +θ … −θ
+    for (let i = params.SAMPLES; i >= 0; i--) {
+        const u = -params.theta + 2 * params.theta * i / params.SAMPLES;
+        const b = params.k * params.r0 * f(u);  // local radius subtracted inward
+        const x = (params.R - b) * Math.cos(u);
+        const y = (params.R - b) * Math.sin(u);
+        shape.lineTo(x, y);
+    }
+    
+    shape.closePath();
+    return shape;
+}
+
+// Scene setup
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
+// Camera
+const camera = new THREE.PerspectiveCamera(
+    50,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+);
+camera.position.set(0, 0, 300);
+
+// Renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+document.body.appendChild(renderer.domElement);
+
+// Croissant group
+const croissantGroup = new THREE.Group();
+scene.add(croissantGroup);
+
+// Function to update croissant geometry
+function updateCroissant() {
+    // Clear existing geometry
+    while(croissantGroup.children.length > 0) {
+        const child = croissantGroup.children[0];
+        if (child.geometry) child.geometry.dispose();
+        if (child.material) child.material.dispose();
+        croissantGroup.remove(child);
+    }
+    
+    // Create new shape
+    const croissantShape = createCroissantShape();
+    
+    // 2D flat representation
+    const geometry2D = new THREE.ShapeGeometry(croissantShape);
+    const material2D = new THREE.MeshBasicMaterial({
+        color: 0xF8D59E,  // warm crumb colour
+        side: THREE.DoubleSide
+    });
+    const mesh2D = new THREE.Mesh(geometry2D, material2D);
+    
+    // Add outline
+    const points = croissantShape.getPoints();
+    const outlineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+    const outlineMaterial = new THREE.LineBasicMaterial({ 
+        color: 0xC69A5B,  // crust outline
+        linewidth: 2 
+    });
+    const outline = new THREE.Line(outlineGeometry, outlineMaterial);
+    outline.position.z = 0.1;  // slightly in front
+    
+    // Add to group
+    croissantGroup.add(mesh2D);
+    croissantGroup.add(outline);
+}
+
+// Initial creation
+updateCroissant();
+
+// Slider setup
+function setupSliders() {
+    // R slider
+    const RSlider = document.getElementById('R-slider');
+    const RValue = document.getElementById('R-value');
+    RSlider.addEventListener('input', (e) => {
+        params.R = parseFloat(e.target.value);
+        RValue.textContent = params.R;
+        updateCroissant();
+    });
+    
+    // r0 slider
+    const r0Slider = document.getElementById('r0-slider');
+    const r0Value = document.getElementById('r0-value');
+    r0Slider.addEventListener('input', (e) => {
+        params.r0 = parseFloat(e.target.value);
+        r0Value.textContent = params.r0;
+        updateCroissant();
+    });
+    
+    // alpha slider
+    const alphaSlider = document.getElementById('alpha-slider');
+    const alphaValue = document.getElementById('alpha-value');
+    alphaSlider.addEventListener('input', (e) => {
+        params.alpha = parseFloat(e.target.value);
+        alphaValue.textContent = params.alpha.toFixed(2);
+        updateCroissant();
+    });
+    
+    // theta slider
+    const thetaSlider = document.getElementById('theta-slider');
+    const thetaValue = document.getElementById('theta-value');
+    thetaSlider.addEventListener('input', (e) => {
+        params.theta = parseFloat(e.target.value);
+        thetaValue.textContent = params.theta.toFixed(2);
+        updateCroissant();
+    });
+    
+    // k slider
+    const kSlider = document.getElementById('k-slider');
+    const kValue = document.getElementById('k-value');
+    kSlider.addEventListener('input', (e) => {
+        params.k = parseFloat(e.target.value);
+        kValue.textContent = params.k.toFixed(2);
+        updateCroissant();
+    });
+    
+    // samples slider
+    const samplesSlider = document.getElementById('samples-slider');
+    const samplesValue = document.getElementById('samples-value');
+    samplesSlider.addEventListener('input', (e) => {
+        params.SAMPLES = parseInt(e.target.value);
+        samplesValue.textContent = params.SAMPLES;
+        updateCroissant();
+    });
+}
+
+// Reset function
+function resetParameters() {
+    params = { ...originalParams };
+    
+    // Update sliders and values
+    document.getElementById('R-slider').value = params.R;
+    document.getElementById('R-value').textContent = params.R;
+    
+    document.getElementById('r0-slider').value = params.r0;
+    document.getElementById('r0-value').textContent = params.r0;
+    
+    document.getElementById('alpha-slider').value = params.alpha;
+    document.getElementById('alpha-value').textContent = params.alpha.toFixed(2);
+    
+    document.getElementById('theta-slider').value = params.theta;
+    document.getElementById('theta-value').textContent = params.theta.toFixed(2);
+    
+    document.getElementById('k-slider').value = params.k;
+    document.getElementById('k-value').textContent = params.k.toFixed(2);
+    
+    document.getElementById('samples-slider').value = params.SAMPLES;
+    document.getElementById('samples-value').textContent = params.SAMPLES;
+    
+    updateCroissant();
+}
+
+// Randomize function
+function randomizeParameters() {
+    // Generate interesting random values
+    params.R = Math.floor(Math.random() * 150) + 30;
+    params.r0 = Math.floor(Math.random() * 40) + 10;
+    params.alpha = Math.random() * 3 + 0.5;
+    params.theta = Math.random() * 2.5 + 0.5;
+    params.k = Math.random() * 0.8 + 0.2;
+    params.SAMPLES = Math.floor(Math.random() * 200 / 20) * 20 + 100;
+    
+    // Update sliders and values
+    document.getElementById('R-slider').value = params.R;
+    document.getElementById('R-value').textContent = params.R;
+    
+    document.getElementById('r0-slider').value = params.r0;
+    document.getElementById('r0-value').textContent = params.r0;
+    
+    document.getElementById('alpha-slider').value = params.alpha;
+    document.getElementById('alpha-value').textContent = params.alpha.toFixed(2);
+    
+    document.getElementById('theta-slider').value = params.theta;
+    document.getElementById('theta-value').textContent = params.theta.toFixed(2);
+    
+    document.getElementById('k-slider').value = params.k;
+    document.getElementById('k-value').textContent = params.k.toFixed(2);
+    
+    document.getElementById('samples-slider').value = params.SAMPLES;
+    document.getElementById('samples-value').textContent = params.SAMPLES;
+    
+    updateCroissant();
+}
+
+// Initialize sliders
+setupSliders();
+
+// Mouse controls
+let mouseX = 0, mouseY = 0;
+let targetRotationX = 0, targetRotationY = 0;
+let mouseDown = false;
+
+document.addEventListener('mousedown', (e) => {
+    if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+        mouseDown = true;
+    }
+});
+document.addEventListener('mouseup', () => mouseDown = false);
+document.addEventListener('mousemove', (event) => {
+    if (mouseDown) {
+        mouseX = event.clientX - window.innerWidth / 2;
+        targetRotationY = mouseX * 0.01;
+        mouseY = event.clientY - window.innerHeight / 2;
+        targetRotationX = mouseY * 0.01;
+    }
+});
+
+// Zoom with mouse wheel
+document.addEventListener('wheel', (event) => {
+    if (event.target.tagName !== 'INPUT') {
+        camera.position.z += event.deltaY * 0.1;
+        camera.position.z = Math.max(100, Math.min(500, camera.position.z));
+    }
+});
+
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Smooth rotation
+    croissantGroup.rotation.x += (targetRotationX - croissantGroup.rotation.x) * 0.05;
+    croissantGroup.rotation.y += (targetRotationY - croissantGroup.rotation.y) * 0.05;
+    
+    renderer.render(scene, camera);
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Start animation
+animate();
+
+// Export for debugging
+window.croissantParams = params;
+</script>
+</body>
+</html>

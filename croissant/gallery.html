@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Croissant Three.js Demos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f8f8f8;
+            color: #333;
+        }
+        h1 {
+            color: #F8D59E;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #666;
+            font-size: 1.2em;
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+        .demos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .demo-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .demo-card h3 {
+            margin-top: 0;
+            color: #C69A5B;
+            font-size: 1.4em;
+        }
+        .demo-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .demo-card a {
+            display: inline-block;
+            background: #F8D59E;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .demo-card a:hover {
+            background: #e0c590;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 30px;
+            color: #856404;
+        }
+        .formula {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+        .params {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .param {
+            text-align: center;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        .param strong {
+            color: #C69A5B;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🥐 Mathematical Croissant</h1>
+    <h2>Three.js implementation of parametric croissant shape</h2>
+    
+    <div class="formula">
+        <strong>f(u) = [cos(πu/2θ)]^α</strong>
+    </div>
+    
+    <div class="params">
+        <div class="param">
+            <strong>R = 70</strong>
+            Major radius
+        </div>
+        <div class="param">
+            <strong>r₀ = 20</strong>
+            Max thickness
+        </div>
+        <div class="param">
+            <strong>α = 1.5</strong>
+            Taper exponent
+        </div>
+        <div class="param">
+            <strong>θ = 1.4</strong>
+            Half-angle (rad)
+        </div>
+        <div class="param">
+            <strong>k = 0.70</strong>
+            Flattening
+        </div>
+    </div>
+    
+    <div class="demos">
+        <div class="demo-card">
+            <h3>Standalone Version</h3>
+            <p>Basic visualization that works directly from file:// URLs. No server required.</p>
+            <a href="standalone.html">Open Demo</a>
+        </div>
+        
+        <div class="demo-card">
+            <h3>Interactive Explorer</h3>
+            <p>Real-time parameter adjustment with sliders for all mathematical constants.</p>
+            <a href="interactive.html">Open Demo</a>
+        </div>
+        
+        <div class="demo-card">
+            <h3>Advanced Explorer</h3>
+            <p>Full-featured version with 3D extrusion, function graphs, presets, and professional UI.</p>
+            <a href="advanced.html">Open Demo</a>
+        </div>
+        
+        <div class="demo-card">
+            <h3>Module Version</h3>
+            <p>ES6 module implementation with OrbitControls. Requires web server.</p>
+            <a href="index.html">Open Demo</a>
+        </div>
+    </div>
+    
+    <div class="note">
+        <strong>Note:</strong> All versions are mathematically identical to the original SVG implementation. The module version requires a web server due to CORS policy. Run <code>python3 -m http.server 8080</code> in this directory if needed.
+    </div>
+</body>
+</html>
